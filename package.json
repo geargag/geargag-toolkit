@@ -1,0 +1,116 @@
+{
+    "author": "Vu Nam Hung",
+    "license": "MIT",
+    "scripts": {
+        "download:libs": "node ./node_modules/frontend-dependencies/index.js",
+        "clean:composer": "rm -rf ./vendor && rm -rf ./src/plugin/vendor",
+        "start": "webpack --watch & gulp default",
+        "build": "webpack --mode=production",
+        "build:analytic": "webpack --mode=production --analytic"
+    },
+    "languages": {
+        "team": "GearGag Team <hello@geargag.com>",
+        "bugReport": "https://geargag.com",
+        "lastTranslator": "Vu Nam Hung <vunamhung@gmail.com>"
+    },
+    "plugin": {
+        "namespace": "GearGagToolkit",
+        "prefix": "ggtk",
+        "name": "geargag-toolkit",
+        "title": "GearGag Toolkit",
+        "short_title": "GearGag Toolkit",
+        "version": "2.0.0",
+        "tags": "woocommerce, geargag",
+        "uri": "https://geargag.com",
+        "author": "GearGag Team",
+        "contributors": "geargag",
+        "author_uri": "https://geargag.com",
+        "plugin_uri": "https://geargag.com",
+        "document_uri": "https://geargag.com",
+        "wp_requires": "5.0",
+        "php_requires": "5.6",
+        "tested_up_to": "5.2",
+        "dev_mode": "disable",
+        "license": "GNU General Public License version 3",
+        "license_uri": "http://www.opensource.org/licenses/gpl-license.php",
+        "copyright": "Copyright (c) 2019, AvitaTheme",
+        "description": "Toolkit for Woocommerce from GearGag",
+        "constant": {
+            "plugin_file": "GG_PLUGIN_FILE",
+            "plugin_dir": "GG_PLUGIN_DIR"
+        }
+    },
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/preset-env": "^7.5.5",
+        "autoprefixer": "^9.6.1",
+        "babel-eslint": "^10.0.2",
+        "babel-loader": "^8.0.4",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "browser-sync": "^2.21.0",
+        "bs-html-injector": "^3.0.3",
+        "bundlesize": "^0.18.0",
+        "classnames": "^2.2.6",
+        "css-loader": "^3.1.0",
+        "css-mqpacker": "^7.0.0",
+        "dateformat": "^3.0.3",
+        "del": "^5.0.0",
+        "delete-empty": "^2.0.0",
+        "downloadjs": "^1.4.7",
+        "duplicate-package-checker-webpack-plugin": "^3.0.0",
+        "eslint": "^6.1.0",
+        "esm": "^3.2.22",
+        "frontend-dependencies": "^1.1.5",
+        "gulp": "^4.0.2",
+        "gulp-freemius-deploy": "^1.0.11",
+        "gulp-imagemin": "^6.0.0",
+        "gulp-jsdoc3": "^2.0.0",
+        "gulp-notify": "^3.2.0",
+        "gulp-plumber": "^1.2.1",
+        "gulp-postcss": "^8.0.0",
+        "gulp-readme-to-markdown": "^0.2.1",
+        "gulp-rename": "^1.4.0",
+        "gulp-replace-task": "^0.11.0",
+        "gulp-rtlcss": "^1.4.0",
+        "gulp-sass": "^4.0.2",
+        "gulp-sass-glob": "^1.1.0",
+        "gulp-size": "^3.0.0",
+        "gulp-sort": "^2.0.0",
+        "gulp-sourcemaps": "^2.6.4",
+        "gulp-svg-sprite": "^1.5.0",
+        "gulp-wp-pot": "^2.3.5",
+        "gulp-zip": "^5.0.0",
+        "mini-css-extract-plugin": "^0.8.0",
+        "postcss-inline-svg": "^4.1.0",
+        "postcss-pxtorem": "^4.0.1",
+        "postcss-svgo": "^4.0.1",
+        "sass-loader": "^7.1.0",
+        "url-loader": "^2.1.0",
+        "webpack": "^4.39.1",
+        "webpack-bundle-analyzer": "^3.4.1",
+        "webpack-cli": "^3.3.6",
+        "webpack-error-notification": "^0.1.8",
+        "yargs": "^13.3.0"
+    },
+    "frontendDependencies": {
+        "packages": {
+            "headroom.js": {
+                "version": "latest",
+                "src": "dist/{headroom,headroom.min}.js",
+                "namespaced": true,
+                "target": "src/theme/assets/libs"
+            }
+        }
+    },
+    "bundlesize": [
+        {
+            "path": "./dist/done/*/assets/js/*.js",
+            "maxSize": "250 kB",
+            "compression": "gzip"
+        },
+        {
+            "path": "./dist/done/**/*.jpg",
+            "maxSize": "700 kB"
+        }
+    ]
+}

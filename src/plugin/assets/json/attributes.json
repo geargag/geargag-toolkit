@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Sizes",
+        "slug": "pa_sizes",
+        "terms": [
+            {
+                "name": "L"
+            },
+            {
+                "name": "M"
+            },
+            {
+                "name": "S"
+            },
+            {
+                "name": "XL"
+            },
+            {
+                "name": "XXL"
+            },
+            {
+                "name": "XXXL"
+            }
+        ]
+    },
+    {
+        "name": "Colors",
+        "slug": "pa_colors",
+        "terms": [
+            {
+                "name": "Black"
+            },
+            {
+                "name": "Blue"
+            },
+            {
+                "name": "White"
+            }
+        ]
+    },
+    {
+        "name": "Styles",
+        "slug": "pa_styles",
+        "terms":             [
+            {
+                "name": "Style 1"
+            },
+            {
+                "name": "Style 2"
+            },
+            {
+                "name": "Style 3"
+            }
+        ]
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "name": "masterblocks/gearfury_toolkit",
+    "license": "MIT",
+    "version": "1.0",
+    "config": {
+        "sort-packages": true,
+        "vendor-dir": "src/plugin/vendor"
+    },
+    "prefer-stable": true
+}

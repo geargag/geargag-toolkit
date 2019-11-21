@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Nihil-50296",
+        "type": "variable",
+        "description": "<p>Magni ipsum ea voluptatem tenetur. Dolore voluptas illo in corporis nobis. Quisquam vitae facere itaque et.<\/p>\n",
+        "sku": "1232312312",
+        "attributes": [
+            {
+                "name": "Colors",
+                "position": 0,
+                "visible": true,
+                "variation": true,
+                "options": [
+                    "Black",
+                    "Blue",
+                    "White"
+                ]
+            },
+            {
+                "name": "Sizes",
+                "position": 1,
+                "visible": true,
+                "variation": true,
+                "options": [
+                    "L",
+                    "M",
+                    "S",
+                    "XL",
+                    "XXL",
+                    "XXXL"
+                ]
+            }
+        ],
+        "tags": [
+            {
+                "name": "abc"
+            },
+            {
+                "name": "def"
+            }
+        ],
+        "default_attributes": [],
+        "variations": [
+            {
+                "name": "Nihil-50296 - Black, L",
+                "type": "variation",
+                "sku": "979808",
+                "regular_price": "900",
+                "attributes": [
+                    {
+                        "name": "Colors",
+                        "option": "Black"
+                    },
+                    {
+                        "name": "Sizes",
+                        "option": "L"
+                    }
+                ]
+            }
+        ]
+    }
+]
