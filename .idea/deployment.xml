@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="geargag">
+    <serverData>
+      <paths name="geargag">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/woo.geargag.com/htdocs/wp-content/plugins/geargag-toolkit" local="$PROJECT_DIR$/dist/done/geargag-toolkit" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
