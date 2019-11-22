@@ -1,16 +1,13 @@
-import { exec } from "child_process";
+import { src, dest } from "gulp";
+import sort from "gulp-sort";
+import wpPot from "gulp-wp-pot";
 
 const { plugin } = require("../../package");
 const { team, bugReport, lastTranslator } = require("../../package").languages;
-const headers = `{"Language-Team":"${team}","Report-Msgid-Bugs-To":"${bugReport}","Last-Translator":"${lastTranslator}"}`;
 
-export function buildPluginPotFile(done) {
-	const run = exec(
-		`wp i18n make-pot src/plugin src/plugin/languages/${plugin.name}.pot  --exclude='assets,utils' --headers='${headers}'`,
-	);
-
-	run.stdout.pipe(process.stdout);
-	run.stderr.pipe(process.stderr);
-
-	done();
+export function buildPluginPotFile() {
+	return src("src/theme/**/*.php")
+		.pipe(sort())
+		.pipe(wpPot({ bugReport, team, lastTranslator }))
+		.pipe(dest(`src/theme/languages/${plugin.name}.pot`));
 }

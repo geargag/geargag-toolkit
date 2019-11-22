@@ -11,8 +11,9 @@ jobs:
     - uses: actions/checkout@master
     - name: Build
       run: |
-        npm install
-        gulp release:plugin
+        npm install gulp gulp-zip del delete-empty gulp-replace-task gulp-sort gulp-wp-pot
+        gulp build:lang
+        gulp release:forGithub
     - name: WordPress Plugin Deploy
       uses: geargag/action-wordpress-plugin-deploy@master
       env:
