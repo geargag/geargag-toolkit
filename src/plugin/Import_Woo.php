@@ -11,10 +11,6 @@ if (!defined('ABSPATH')) {
 set_time_limit(120);
 ini_set("memory_limit", -1);
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 function geargag_slugify($text) {
 	$text = str_replace(array("’", "'"), "s", $text);
 	// replace non letter or digits by -
