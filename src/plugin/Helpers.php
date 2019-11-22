@@ -2,6 +2,10 @@
 
 namespace vnh_namespace;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 function get_time_zone() {
 	$tz_text = get_option('timezone_string');
 	if (!empty($tz_text)) {

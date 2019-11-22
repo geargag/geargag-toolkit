@@ -2,6 +2,10 @@
 
 namespace vnh_namespace\tools;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 class Driver extends \PDO {
 	protected $_prefix = 'wp_';
 
