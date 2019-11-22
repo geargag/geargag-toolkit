@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/GearGag Toolkit.iml" filepath="$PROJECT_DIR$/.idea/GearGag Toolkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/geargag-toolkit.iml" filepath="$PROJECT_DIR$/.idea/GearGag Toolkit.iml" />
     </modules>
   </component>
 </project>
