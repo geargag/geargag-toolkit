@@ -2,6 +2,10 @@
 
 namespace vnh_namespace;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 use vnh_namespace\tools\contracts\Bootable;
 
 class Batch_Delete_Products implements Bootable {

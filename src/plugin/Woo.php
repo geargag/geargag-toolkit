@@ -4,6 +4,10 @@ namespace vnh_namespace;
 
 use vnh_namespace\tools\contracts\Bootable;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 class Woo implements Bootable {
 	public function boot() {
 		add_action('save_post_product', [$this, 'save_product']);

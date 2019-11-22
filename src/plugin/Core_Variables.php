@@ -2,7 +2,9 @@
 
 namespace vnh_namespace;
 
-use vnh_namespace\batch_delete_products\Batch_Delete_Products;
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
 
 trait Core_Variables {
 	/**

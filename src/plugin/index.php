@@ -12,6 +12,10 @@
  * Text Domain: vnh_textdomain
  */
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 spl_autoload_register(function ($class_name) {
 	if (stripos($class_name, 'vnh_namespace') !== 0) {
 		return;

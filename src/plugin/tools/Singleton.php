@@ -2,6 +2,10 @@
 
 namespace vnh_namespace\tools;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 abstract class Singleton {
 	protected static $_instance;
 

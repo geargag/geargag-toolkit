@@ -2,6 +2,10 @@
 
 namespace vnh_namespace;
 
+if (!defined('ABSPATH')) {
+	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
+}
+
 $plugin = get_plugin_data(vnh_plugin_file);
 
 define(__NAMESPACE__ . '\PLUGIN_NAME', $plugin['Name']);
