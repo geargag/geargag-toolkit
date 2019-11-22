@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 set_time_limit(120);
-ini_set("memory_limit", -1);
+ini_set('memory_limit', -1);
 
 function geargag_slugify($text) {
 	$text = str_replace(array("’", "'"), "s", $text);
