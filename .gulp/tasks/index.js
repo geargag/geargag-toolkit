@@ -10,7 +10,6 @@ import { buildPluginPotFile } from "./language";
 
 task("push:plugin", pushPlugins);
 task("build:lang", buildPluginPotFile);
-task("release:forGithub", series(cleanDist, cleanDSStore, copyPlugin, deleteEmptyDir, replacePluginTexts, zipPlugin));
 task(
 	"release:plugin",
 	series(cleanDist, cleanDSStore, copyPlugin, deleteEmptyDir, replacePluginTexts, zipPlugin, readmeToMarkdown, getPluginSize),
