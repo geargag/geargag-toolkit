@@ -9,7 +9,7 @@
  * classes that get loaded once per page request.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Bootable {
 	/**

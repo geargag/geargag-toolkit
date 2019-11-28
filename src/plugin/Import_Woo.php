@@ -1,8 +1,8 @@
 <?php
 
-namespace vnh_namespace;
+namespace GearGag_Toolkit;
 
-use vnh_namespace\tools\Driver;
+use GearGag_Toolkit\tools\Driver;
 
 if (!defined('ABSPATH')) {
 	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));

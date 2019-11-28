@@ -1,14 +1,14 @@
 <?php
 
-namespace vnh_namespace;
+namespace GearGag_Toolkit;
 
 if (!defined('ABSPATH')) {
 	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
 }
 
-use vnh_namespace\tools\Singleton;
-use vnh_namespace\tools\contracts\Bootable;
-use vnh_namespace\tools\contracts\Initable;
+use GearGag_Toolkit\tools\Singleton;
+use GearGag_Toolkit\tools\contracts\Bootable;
+use GearGag_Toolkit\tools\contracts\Initable;
 
 abstract class Core extends Singleton implements Bootable, Initable {
 	use Core_Variables;

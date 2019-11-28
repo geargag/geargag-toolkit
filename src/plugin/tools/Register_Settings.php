@@ -1,15 +1,15 @@
 <?php
 
-namespace vnh_namespace\tools;
+namespace GearGag_Toolkit\tools;
 
 if (!defined('ABSPATH')) {
 	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
 }
 
-use vnh_namespace\tools\contracts\Bootable;
-use vnh_namespace\tools\contracts\Initable;
-use vnh_namespace\tools\contracts\Renderable;
-use const vnh_namespace\PLUGIN_SLUG;
+use GearGag_Toolkit\tools\contracts\Bootable;
+use GearGag_Toolkit\tools\contracts\Initable;
+use GearGag_Toolkit\tools\contracts\Renderable;
+use const GearGag_Toolkit\PLUGIN_SLUG;
 
 abstract class Register_Settings implements Initable, Bootable, Renderable {
 	public $prefix;
