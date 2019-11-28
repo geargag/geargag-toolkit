@@ -1,13 +1,11 @@
 <?php
 
-namespace vnh_namespace\tools;
+namespace GearGag_Toolkit\tools;
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
-use vnh_namespace\tools\contracts\Bootable;
-use function vnh_namespace\flatten_version;
+use GearGag_Toolkit\tools\contracts\Bootable;
+use function GearGag_Toolkit\flatten_version;
 
 class Register_Assets implements Bootable {
 	public $scripts;

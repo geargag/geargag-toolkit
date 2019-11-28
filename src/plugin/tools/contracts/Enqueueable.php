@@ -5,7 +5,7 @@
  * Enqueueable classes should implement a `enqueue()` method.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Enqueueable extends Bootable {
 	/**
