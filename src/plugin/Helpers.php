@@ -2,9 +2,7 @@
 
 namespace GearGag_Toolkit;
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
 function get_time_zone() {
 	$tz_text = get_option('timezone_string');

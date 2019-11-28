@@ -12,16 +12,14 @@
  * Text Domain: vnh_textdomain
  */
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
 spl_autoload_register(function ($class_name) {
-	if (stripos($class_name, 'vnh_namespace') !== 0) {
+	if (stripos($class_name, 'GearGag_Toolkit') !== 0) {
 		return;
 	}
 
-	$file_name = preg_replace('/^vnh_namespace\\\\/', '', $class_name);
+	$file_name = preg_replace('/^GearGag_Toolkit\\\\/', '', $class_name);
 	$file_name = str_replace('\\', '/', $file_name);
 
 	$file_path = sprintf('%s/%s.php', __DIR__, $file_name);

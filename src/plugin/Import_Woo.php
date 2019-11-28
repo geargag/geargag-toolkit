@@ -4,9 +4,7 @@ namespace GearGag_Toolkit;
 
 use GearGag_Toolkit\tools\Driver;
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
 set_time_limit(120);
 ini_set('memory_limit', -1);

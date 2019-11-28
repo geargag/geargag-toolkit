@@ -87,7 +87,6 @@
 	<rule ref="Generic.PHP.ForbiddenFunctions">
 		<properties>
 			<property name="forbiddenFunctions" type="array">
-				<element key="die" value="wp_die"/>
 				<element key="s" value="null"/>
 				<element key="d" value="null"/>
 				<element key="print" value="echo"/>
