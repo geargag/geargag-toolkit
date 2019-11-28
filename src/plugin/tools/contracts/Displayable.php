@@ -7,7 +7,7 @@
  * escaped prior to being output.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Displayable {
 	/**

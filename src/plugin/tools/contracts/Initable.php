@@ -6,7 +6,7 @@
  * should have a `init()` method with the singular purpose of "initing" the class.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Initable {
 	public function init();

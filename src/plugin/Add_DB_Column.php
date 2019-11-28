@@ -1,12 +1,12 @@
 <?php
 
-namespace vnh_namespace;
+namespace GearGag_Toolkit;
 
 if (!defined('ABSPATH')) {
 	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
 }
 
-use vnh_namespace\tools\contracts\Bootable;
+use GearGag_Toolkit\tools\contracts\Bootable;
 
 class Add_DB_Column implements Bootable {
 	public function boot() {
