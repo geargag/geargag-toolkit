@@ -12,24 +12,8 @@
  * Text Domain: vnh_textdomain
  */
 
-defined('WPINC') || die();
-
-spl_autoload_register(function ($class_name) {
-	if (stripos($class_name, 'GearGag_Toolkit') !== 0) {
-		return;
-	}
-
-	$file_name = preg_replace('/^GearGag_Toolkit\\\\/', '', $class_name);
-	$file_name = str_replace('\\', '/', $file_name);
-
-	$file_path = sprintf('%s/%s.php', __DIR__, $file_name);
-
-	if (file_exists($file_path)) {
-		require_once $file_path;
-	}
-});
-
 define('vnh_plugin_file', __FILE__);
 define('vnh_plugin_dir', __DIR__);
 
+require __DIR__ . '/vendor/autoload.php';
 GearGag_Toolkit\Plugin::instance();
