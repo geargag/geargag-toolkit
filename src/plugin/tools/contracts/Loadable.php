@@ -7,7 +7,7 @@
  * file. This keeps require calls out of the class constructor.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Loadable {
 	/**

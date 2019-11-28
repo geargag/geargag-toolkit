@@ -10,7 +10,7 @@
  * this contract.
  */
 
-namespace vnh_namespace\tools\contracts;
+namespace GearGag_Toolkit\tools\contracts;
 
 interface Renderable {
 	/**

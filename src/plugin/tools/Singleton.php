@@ -1,10 +1,8 @@
 <?php
 
-namespace vnh_namespace\tools;
+namespace GearGag_Toolkit\tools;
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
 abstract class Singleton {
 	protected static $_instance;
