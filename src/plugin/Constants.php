@@ -2,9 +2,7 @@
 
 namespace GearGag_Toolkit;
 
-if (!defined('ABSPATH')) {
-	wp_die(esc_html__('Direct access not permitted', 'vnh_textdomain'));
-}
+defined('WPINC') || die();
 
 $plugin = get_plugin_data(vnh_plugin_file);
 
