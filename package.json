@@ -2,8 +2,8 @@
     "author": "Vu Nam Hung",
     "license": "MIT",
     "scripts": {
-        "download:libs": "node ./node_modules/frontend-dependencies/index.js",
-        "clean:composer": "rm -rf ./vendor && rm -rf ./src/plugin/vendor",
+        "download:libs": "node node_modules/frontend-dependencies/index.js",
+        "clean:composer": "rm -rf vendor && rm -rf src/plugin/vendor",
         "start": "webpack --watch & gulp default",
         "build": "webpack --mode=production",
         "build:analytic": "webpack --mode=production --analytic"
@@ -14,12 +14,13 @@
         "lastTranslator": "Vu Nam Hung <vunamhung@gmail.com>"
     },
     "plugin": {
-        "namespace": "GearGagToolkit",
+        "namespace": "GearGag_Toolkit",
         "prefix": "ggtk",
-        "name": "geargag-toolkit",
-        "title": "GearGag Toolkit",
-        "short_title": "GearGag Toolkit",
-        "version": "2.0.0",
+        "slug": "geargag-toolkit",
+        "name": "GearGag Toolkit",
+        "short_name": "GearGag Toolkit",
+        "description": "Toolkit for Woocommerce from GearGag",
+        "version": "2.1.0",
         "tags": "woocommerce, geargag",
         "uri": "https://geargag.com",
         "author": "GearGag Team",
@@ -33,12 +34,9 @@
         "dev_mode": "disable",
         "license": "GNU General Public License version 3",
         "license_uri": "http://www.opensource.org/licenses/gpl-license.php",
-        "copyright": "Copyright (c) 2019, AvitaTheme",
-        "description": "Toolkit for Woocommerce from GearGag",
-        "constant": {
-            "plugin_file": "GG_PLUGIN_FILE",
-            "plugin_dir": "GG_PLUGIN_DIR"
-        }
+        "copyright": "Copyright (c) 2019, GearGag Team",
+        "wc_requires": "3.2.0",
+        "wc_tested_up_to": "3.8.0"
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
@@ -102,12 +100,12 @@
     },
     "bundlesize": [
         {
-            "path": "./dist/done/*/assets/js/*.js",
+            "path": "dist/done/*/assets/js/*.js",
             "maxSize": "250 kB",
             "compression": "gzip"
         },
         {
-            "path": "./dist/done/**/*.jpg",
+            "path": "dist/done/**/*.jpg",
             "maxSize": "700 kB"
         }
     ]
