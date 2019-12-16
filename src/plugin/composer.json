@@ -1,5 +1,6 @@
 {
     "autoload": {
+        "files": ["constants.php", "helpers.php"],
         "psr-4": {
             "GearGag_Toolkit\\": "."
         }

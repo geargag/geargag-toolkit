@@ -2,12 +2,16 @@
 
 namespace GearGag_Toolkit\tools;
 
-defined('WPINC') || die();
-
 abstract class Singleton {
 	protected static $_instance;
 
-	abstract public static function instance();
+	public static function instance() {
+		if (!(self::$_instance instanceof self)) {
+			self::$_instance = new static();
+		}
+
+		return self::$_instance;
+	}
 
 	/**
 	 * Clone.
