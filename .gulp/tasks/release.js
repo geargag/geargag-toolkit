@@ -13,8 +13,8 @@ const { plugin } = require("../../package");
 
 export function zipPlugin() {
 	return gulp
-		.src(`./dist/done/**/*`)
-		.pipe(zip(`${plugin.name}.zip`))
+		.src(["./dist/done/**/*", "!**/composer.*"])
+		.pipe(zip(`${plugin.slug}.zip`))
 		.pipe(gulp.dest("./dist"));
 }
 
@@ -32,17 +32,27 @@ export function cleanDSStore(done) {
 	done();
 }
 
+export function updateComposer(done) {
+	const cmd = `cd ./dist/done/${plugin.slug}/ && composer dump-autoload --no-interaction --ansi --verbose --optimize`,
+		run = exec(cmd);
+
+	run.stdout.pipe(process.stdout);
+	run.stderr.pipe(process.stderr);
+
+	done();
+}
+
 export function cleanDist() {
 	return del("./dist/**");
 }
 
 export function copyPlugin() {
-	return gulp.src(paths.plugin.build).pipe(gulp.dest(`./dist/build/${plugin.name}`));
+	return gulp.src(paths.plugin.build).pipe(gulp.dest(`./dist/build/${plugin.slug}`));
 }
 
 export function replacePluginTexts() {
 	return gulp
-		.src(`./dist/build/${plugin.name}/**/*`)
+		.src(`./dist/build/${plugin.slug}/**/*`)
 		.pipe(
 			replace({
 				patterns: [
@@ -50,35 +60,35 @@ export function replacePluginTexts() {
 						json: {
 							namespace: plugin.namespace,
 							prefix: plugin.prefix,
-							title: plugin.title,
-							short_title: plugin.short_title,
-							tags: plugin.tags,
 							name: plugin.name,
+							short_name: plugin.short_name,
+							tags: plugin.tags,
 							version: plugin.version,
 							uri: plugin.uri,
-							author: plugin.author,
 							contributors: plugin.contributors,
+							author: plugin.author,
 							author_uri: plugin.author_uri,
 							plugin_uri: plugin.plugin_uri,
 							document_uri: plugin.document_uri,
 							license: plugin.license,
 							license_uri: plugin.license_uri,
 							copyright: plugin.copyright,
-							textdomain: plugin.name,
+							textdomain: plugin.slug,
+							slug: plugin.slug,
 							description: plugin.description,
 							wp_requires: plugin.wp_requires,
 							php_requires: plugin.php_requires,
+							wc_requires: plugin.wc_requires,
+							wc_tested_up_to: plugin.wc_tested_up_to,
 							tested_up_to: plugin.tested_up_to,
 							dev_mode: plugin.dev_mode,
-							plugin_file: plugin.constant.plugin_file,
-							plugin_dir: plugin.constant.plugin_dir,
 						},
 					},
 				],
 				prefix: "vnh_",
 			}),
 		)
-		.pipe(gulp.dest(`./dist/done/${plugin.name}`));
+		.pipe(gulp.dest(`./dist/done/${plugin.slug}`));
 }
 
 export function getPluginSize() {
@@ -92,7 +102,7 @@ export function getPluginSize() {
 		.pipe(s)
 		.pipe(
 			notify({
-				title: plugin.name,
+				title: plugin.slug,
 				onLast: true,
 				message: () => `This plugin's size is ${s.prettySize}`,
 			}),
