@@ -22,6 +22,12 @@ class Register_Assets implements Bootable {
 		if ($this->context === 'backend') {
 			add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
 			add_action('admin_enqueue_scripts', [$this, 'register_styles']);
+		} elseif ($this->context === 'block') {
+			add_action('enqueue_block_assets', [$this, 'register_scripts']);
+			add_action('enqueue_block_assets', [$this, 'register_styles']);
+		} elseif ($this->context === 'editor') {
+			add_action('enqueue_block_editor_assets', [$this, 'register_scripts']);
+			add_action('enqueue_block_editor_assets', [$this, 'register_styles']);
 		} else {
 			add_action('wp_enqueue_scripts', [$this, 'register_scripts']);
 			add_action('wp_enqueue_scripts', [$this, 'register_styles']);
