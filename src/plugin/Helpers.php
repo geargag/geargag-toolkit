@@ -62,3 +62,6 @@ function get_plugin_url($dir = null) {
 function is_dev() {
 	return (defined(__NAMESPACE__ . '\DEV_MODE') && DEV_MODE !== 'disable') || isset($_GET['dev']);
 }
+
+class Helpers {
+}
