@@ -35,6 +35,8 @@ final class Plugin {
 	}
 
 	public function init() {
+		new Constants();
+		new Helpers();
 		new KSES();
 	}
 
