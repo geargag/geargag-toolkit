@@ -3,6 +3,7 @@
 namespace GearGag_Toolkit;
 
 use GearGag_Toolkit\tools\Driver;
+use PDO;
 
 defined('WPINC') || die();
 
@@ -40,7 +41,8 @@ class Import_Woo {
 	protected $_prefix = 'wp_';
 
 	public function __construct() {
-		$this->_prefix = wpdb()->prefix;
+		global $wpdb;
+		$this->_prefix = $wpdb->prefix;
 	}
 
 	public function test() {
@@ -49,8 +51,8 @@ class Import_Woo {
 
 	public function update_elastic($url, $consumer_key, $consumer_secret) {
 		$db = new Driver('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD);
-		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-		$db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$db->setPrefix($this->_prefix);
 
 		$st = $db->prepare(
@@ -69,13 +71,9 @@ class Import_Woo {
 
 	public function import($json, $consumer_key, $consumer_secret) {
 		$db = new Driver('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD);
-		$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-		$db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$db->setPrefix($this->_prefix);
-
-		$st = $db->prepare(
-			"SELECT * FROM {$this->_prefix}woocommerce_api_keys WHERE consumer_key = :consumer_key  AND consumer_secret = :consumer_secret LIMIT 1"
-		);
 
 		$st = $db->prepare(
 			"SELECT * FROM {$this->_prefix}woocommerce_api_keys WHERE consumer_key = :consumer_key  AND consumer_secret = :consumer_secret LIMIT 1"
@@ -95,15 +93,15 @@ class Import_Woo {
 		}
 
 		$st = $db->query("SELECT term.*,tax.term_taxonomy_id
-									FROM {$this->_prefix}term_taxonomy tax join {$this->_prefix}terms term 
-									ON tax.term_id = term.term_id 
+									FROM {$this->_prefix}term_taxonomy tax join {$this->_prefix}terms term
+									ON tax.term_id = term.term_id
 									WHERE tax.taxonomy = 'product_cat'
 					    ");
 		$wp_terms_cat = $st->fetchAll(5);
 
 		$st = $db->query("SELECT term.*,tax.term_taxonomy_id
-									FROM {$this->_prefix}term_taxonomy tax join {$this->_prefix}terms term 
-									ON tax.term_id = term.term_id 
+									FROM {$this->_prefix}term_taxonomy tax join {$this->_prefix}terms term
+									ON tax.term_id = term.term_id
 									WHERE tax.taxonomy = 'product_tag'
 					    ");
 		$wp_terms_tags = $st->fetchAll(5);
