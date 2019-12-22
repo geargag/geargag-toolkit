@@ -2,6 +2,8 @@
 
 namespace GearGag_Toolkit;
 
+use WP_Error;
+
 class Export_Woo {
 	public function query_products($last_id) {
 		global $wpdb;
@@ -27,9 +29,9 @@ LIMIT 100";
 
 	public function export_products($last_id) {
 		if (empty($this->query_products($last_id))) {
-			header('Content-Type: application/json');
-			echo wp_json_encode(['status' => false, 'error' => 'empty products']);
-			exit();
+			return new WP_Error('rest_export_product_invalid', esc_html__('The product does not exist.', 'vnh_textdomain'), array(
+				'status' => 404,
+			));
 		}
 
 		$results = [];
