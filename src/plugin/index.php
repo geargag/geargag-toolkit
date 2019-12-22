@@ -23,6 +23,10 @@ const PLUGIN_FILE = __FILE__;
 const PLUGIN_DIR = __DIR__;
 
 final class Plugin {
+	public $add_db_column;
+	public $batch_delete;
+	public $woo;
+
 	public function __construct() {
 		$this->load();
 		$this->init();
