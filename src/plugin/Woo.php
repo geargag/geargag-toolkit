@@ -34,9 +34,6 @@ class Woo implements Bootable {
 		update_post_meta($post_id, 'product_updated', true);
 	}
 
-	/**
-	 * @uses get_updated_products, get_deleted_products, empty_deleted_products_option
-	 */
 	public function register_routes() {
 		register_rest_route('geargag/v1', '/export-products', [
 			'methods' => 'GET',
@@ -69,32 +66,6 @@ class Woo implements Bootable {
 		$export = new Export_Woo();
 
 		return $export->export_products($last_id);
-	}
-
-	public function update_elasticsearch($req) {
-		$json = $req->get_json_params();
-		$json = json_decode(json_encode($json));
-		$consumer_key = $req->get_param('consumer_key');
-		$consumer_secret = $req->get_param('consumer_secret');
-
-		$url = $json->url ?? '';
-
-		$import = new Import_Woo();
-		$import->update_elastic($url, $consumer_key, $consumer_secret);
-		exit();
-	}
-
-	/**
-	 * @param $req WP_REST_Request
-	 */
-	public function import_products($req) {
-		$json = $req->get_json_params();
-		$json = json_decode(json_encode($json));
-		$consumer_key = $req->get_param('consumer_key');
-		$consumer_secret = $req->get_param('consumer_secret');
-		$import = new Import_Woo();
-		$import->import($json, $consumer_key, $consumer_secret);
-		exit();
 	}
 
 	public function get_updated_products() {
@@ -150,5 +121,15 @@ class Woo implements Bootable {
 
 	public function empty_deleted_products_option() {
 		update_option('geargag_delete_products', []);
+	}
+
+	public function import_products(WP_REST_Request $req) {
+		$json = $req->get_json_params();
+		$json = json_decode(json_encode($json));
+		$consumer_key = $req->get_param('consumer_key');
+		$consumer_secret = $req->get_param('consumer_secret');
+		$import = new Import_Woo();
+		$import->import($json, $consumer_key, $consumer_secret);
+		exit();
 	}
 }
