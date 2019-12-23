@@ -24,7 +24,7 @@ LIMIT 100";
 
 		$query = str_replace(['wp_posts', 'wp_postmeta'], [$wpdb->posts, $wpdb->postmeta], $query);
 
-		return $wpdb->get_results($wpdb->prepare($query, $last_id, ARRAY_A));
+		return $wpdb->get_results($wpdb->prepare($query, esc_sql($last_id), ARRAY_A));
 	}
 
 	public function export_products($last_id) {
