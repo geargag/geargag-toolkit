@@ -62,7 +62,7 @@ class Woo implements Bootable {
 	}
 
 	public function get_export_products(WP_REST_Request $req) {
-		$last_id = $req->get_param('last_id') ?: 1;
+		$last_id = $req->get_param('last_id') ? (int) $req->get_param('last_id') : 1;
 		$export = new Export_Woo();
 
 		return $export->export_products($last_id);
