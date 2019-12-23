@@ -33,7 +33,7 @@ export function cleanDSStore(done) {
 }
 
 export function updateComposer(done) {
-	const cmd = `cd ./dist/done/${plugin.slug}/ && composer dump-autoload --no-interaction --ansi --verbose --optimize`,
+	const cmd = `cd ./dist/done/${plugin.slug}/ && composer install && composer dump-autoload --no-interaction --ansi --verbose --optimize`,
 		run = exec(cmd);
 
 	run.stdout.pipe(process.stdout);
