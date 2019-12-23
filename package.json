@@ -20,7 +20,7 @@
         "name": "GearGag Toolkit",
         "short_name": "GearGag Toolkit",
         "description": "Toolkit for Woocommerce from GearGag",
-        "version": "2.2.0",
+        "version": "2.3.0",
         "tags": "woocommerce, geargag",
         "uri": "https://geargag.com",
         "author": "GearGag Team",
@@ -30,13 +30,13 @@
         "document_uri": "https://geargag.com",
         "wp_requires": "5.0",
         "php_requires": "5.6",
-        "tested_up_to": "5.2",
+        "tested_up_to": "5.3.2",
         "dev_mode": "disable",
         "license": "GNU General Public License version 3",
         "license_uri": "http://www.opensource.org/licenses/gpl-license.php",
         "copyright": "Copyright (c) 2019, GearGag Team",
         "wc_requires": "3.2.0",
-        "wc_tested_up_to": "3.8.0"
+        "wc_tested_up_to": "3.8.1"
     },
     "devDependencies": {
         "@babel/core": "^7.5.5",
