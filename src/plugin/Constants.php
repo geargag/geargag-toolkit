@@ -8,15 +8,15 @@ if (!function_exists('get_plugin_data')) {
 	require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
-$plugin = get_plugin_data(PLUGIN_FILE);
+$plugin_data = get_plugin_data(PLUGIN_FILE);
 
-define(__NAMESPACE__ . '\PLUGIN_NAME', $plugin['Name']);
-define(__NAMESPACE__ . '\PLUGIN_DESCRIPTION', $plugin['Description']);
-define(__NAMESPACE__ . '\PLUGIN_URI', $plugin['PluginURI']);
-define(__NAMESPACE__ . '\PLUGIN_VERSION', $plugin['Version']);
-define(__NAMESPACE__ . '\PLUGIN_AUTHOR', $plugin['Author']);
-define(__NAMESPACE__ . '\PLUGIN_AUTHOR_URI', $plugin['AuthorURI']);
-define(__NAMESPACE__ . '\PLUGIN_TEXT_DOMAIN', $plugin['TextDomain']);
+define(__NAMESPACE__ . '\PLUGIN_NAME', $plugin_data['Name']);
+define(__NAMESPACE__ . '\PLUGIN_DESCRIPTION', $plugin_data['Description']);
+define(__NAMESPACE__ . '\PLUGIN_URI', $plugin_data['PluginURI']);
+define(__NAMESPACE__ . '\PLUGIN_VERSION', $plugin_data['Version']);
+define(__NAMESPACE__ . '\PLUGIN_AUTHOR', $plugin_data['Author']);
+define(__NAMESPACE__ . '\PLUGIN_AUTHOR_URI', $plugin_data['AuthorURI']);
+define(__NAMESPACE__ . '\PLUGIN_TEXT_DOMAIN', $plugin_data['TextDomain']);
 define(__NAMESPACE__ . '\PLUGIN_SLUG', basename(PLUGIN_DIR));
 define(__NAMESPACE__ . '\PLUGIN_BASE', plugin_basename(PLUGIN_FILE));
 define(__NAMESPACE__ . '\PLUGIN_PATH', trailingslashit(PLUGIN_DIR));
