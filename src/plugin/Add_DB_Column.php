@@ -8,7 +8,7 @@ use GearGag_Toolkit\tools\contracts\Bootable;
 
 class Add_DB_Column implements Bootable {
 	public function boot() {
-		add_action('vnh_prefix_install', [$this, 'add_column']);
+		register_activation_hook(PLUGIN_FILE, [$this, 'add_column']);
 	}
 
 	public function add_column() {
