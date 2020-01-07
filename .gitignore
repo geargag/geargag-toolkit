@@ -12,4 +12,3 @@ dist/
 /src/plugin/vendor/
 /src/plugin/languages/
 /src/plugin/assets/js/dist
-/wp-cli.local.yml
