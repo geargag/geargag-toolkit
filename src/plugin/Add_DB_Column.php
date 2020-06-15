@@ -17,10 +17,10 @@ class Add_DB_Column implements Bootable {
 		$modes = ["SET SESSION sql_mode = 'TRADITIONAL'"];
 		$wpdb->set_sql_mode($modes);
 
-		$row = $wpdb->get_row("SELECT * FROM $wpdb->posts");
+		$check_column_exist = $wpdb->query("SHOW COLUMNS FROM $wpdb->posts LIKE 'geargag_defaults'");
 
-		if (!isset($row->geargag_defaults)) {
-			$wpdb->query("ALTER TABLE $wpdb->posts ADD geargag_defaults longtext");
+		if (!$check_column_exist) {
+			$wpdb->query("ALTER TABLE $wpdb->posts ADD `geargag_defaults` longtext");
 		}
 	}
 }
