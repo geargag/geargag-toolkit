@@ -4,9 +4,7 @@
 
 	<exclude-pattern>**/modules/**</exclude-pattern>
 	<exclude-pattern>**/node_modules/**</exclude-pattern>
-	<exclude-pattern>**/WordPress/**</exclude-pattern>
 	<exclude-pattern>**/vendor/**</exclude-pattern>
-	<exclude-pattern>**/tests/**</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
 
@@ -32,6 +30,7 @@
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
 		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen" />
 		<exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeOpenBracket" />
