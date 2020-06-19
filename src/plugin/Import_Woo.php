@@ -299,4 +299,256 @@ class Import_Woo {
 
 		return $text;
 	}
+	public function insert($json, $consumer_key, $consumer_secret) {
+		$db = new Driver('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD);
+		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+		$db->setPrefix($this->_prefix);
+
+		$st = $db->prepare(
+			"SELECT * FROM {$this->_prefix}woocommerce_api_keys WHERE consumer_key = :consumer_key  AND consumer_secret = :consumer_secret LIMIT 1"
+		);
+		$st->execute([':consumer_key' => wc_api_hash($consumer_key), ':consumer_secret' => $consumer_secret]);
+		$checkToken = $st->fetchObject();
+		if (!is_object($checkToken)) {
+			header('Content-Type: application/json');
+			echo json_encode(['status' => false, 'error' => 'invalid token']);
+			exit();
+		}
+
+		$st = $db->query("SELECT * FROM {$this->_prefix}terms WHERE name = 'simple' LIMIT 1");
+		$wp_terms = $st->fetchObject();
+		if (!is_object($wp_terms)) {
+			exit();
+		}
+
+		$st = $db->query("SELECT term.*,tax.term_taxonomy_id
+									FROM {$this->_prefix}term_taxonomy tax join {$this->_prefix}terms term
+									ON tax.term_id = term.term_id
+									WHERE term.name = 'variable'
+					    ");
+
+		$wp_term_taxonomy = $st->fetchObject();
+		if (!is_object($wp_term_taxonomy)) {
+			exit();
+		}
+
+		$wp_term_taxonomy_id_variable = $wp_term_taxonomy->term_taxonomy_id;
+
+		$db->beginTransaction();
+
+		try {
+
+			//Todo : insert product to wp_posts
+			$wp_posts = [
+				'post_author' => 1,
+				'post_content' => '',
+				'post_title' => $json->product->name ? $json->product->name : "",
+				'post_excerpt' => $json->product->description ? $json->product->description : "",
+				'post_status' => 'publish',
+				'comment_status' => 'open',
+				'ping_status' => 'closed',
+				'post_password' => '',
+				'post_name' => '',
+				'to_ping' => '',
+				'pinged' => '',
+				'post_content_filtered' => '',
+				'post_parent' => 0,
+				'menu_order' => 0,
+				'post_type' => 'product',
+				'post_mime_type' => '',
+				'comment_count' => 0,
+			];
+
+			$slug = $this->slugify($json->name) . '-' . time();
+			$date = new DateTime('now', new DateTimeZone(get_time_zone()));
+			$wp_posts['post_name'] = $slug;
+			$wp_posts['post_date'] = $date->format('Y-m-d H:i:s');
+			$wp_posts['post_modified'] = $date->format('Y-m-d H:i:s');
+			$wp_posts['post_date_gmt'] =$date->format('Y-m-d H:i:s');
+			$wp_posts['post_modified_gmt'] = $date->format('Y-m-d H:i:s');
+			$db->insert('posts', $wp_posts);
+
+			//Todo : insert product variant to wp_posts
+			$product_id = $db->lastInsertId();
+			foreach ($json->variant as $variant)
+			{
+				$slug = $this->slugify($variant->title) . '-' . time();
+				$wp_posts_vartiant = [
+					'post_author' => 1,
+					'post_date' => $date->format('Y-m-d H:i:s'),
+					'post_modified' => $date->format('Y-m-d H:i:s'),
+					'post_date_gmt' =>$date->format('Y-m-d H:i:s'),
+					'post_modified_gmt' =>$date->format('Y-m-d H:i:s'),
+					'post_content' => '',
+					'post_title' =>$variant->title ? $variant->title : "",
+					'post_excerpt' => '',
+					'post_status' => 'publish',
+					'comment_status' => 'open',
+					'ping_status' => 'closed',
+					'post_password' => '',
+					'post_name' => $slug,
+					'to_ping' => '',
+					'pinged' => '',
+					'post_content_filtered' => '',
+					'post_parent' => $product_id,
+					'menu_order' => 0,
+					'post_type' => 'product_variation',
+					'post_mime_type' => '',
+				];
+				$db->insert('posts', $wp_posts_vartiant);
+
+			}
+
+			$attributes = [];
+			$i=0;
+			foreach ($json->attributes as $key=>$val)
+			{
+				$attributes[$key] = [
+					'name'=> $key,
+					'value'=> implode('|', $val),
+					'position'=> $i,
+					'is_visible'=> $i,
+					'is_variation'=> 1,
+					'is_taxonomy'=> 0,
+				];
+				$i++;
+			}
+
+			//Todo : insert product to wp_postmeta
+			$meta_keys = [
+				'product_updated' => 1,
+				'_edit_last' => '1',
+				'_edit_lock' => '1',
+				'total_sales' => '0',
+				'_tax_status' => 'taxable',
+				'_tax_class' => '',
+				'_manage_stock' => 'no',
+				'_backorders' => 'no',
+				'_sold_individually' => 'no',
+				'_virtual' => 'no',
+				'_downloadable' => 'no',
+				'_download_limit' => '-1',
+				'_download_expiry' => '-1',
+				'_stock' => NULL,
+				'_stock_status' => 'instock',
+				'_wc_average_rating' => 'no',
+				'_wc_review_count' => 'no',
+				'_product_version' => 'no',
+				'_price' => $json->product->price,
+				'_product_attributes'=>serialize($attributes)
+			];
+
+			foreach ($meta_keys as $key => $val) {
+				$item = [];
+				$item['post_id'] = $product_id;
+				$item['meta_key'] = $key;
+				$item['meta_value'] = $val;
+				$db->insert('postmeta', $item);
+			}
+
+			if($json->product->image){
+				$item = [];
+				$item['post_id'] = $product_id;
+				$item['meta_key'] = 'geargag_image_url';
+				$item['meta_value'] =$json->product->image;
+				$db->insert('postmeta', $item);
+			}
+
+			//Todo : insert product type is variant to term_relationships
+			$item = [];
+			$item['object_id'] = $product_id;
+			$item['term_taxonomy_id'] = $wp_term_taxonomy_id_variable;
+			$item['term_order'] = 0;
+			$db->insert('term_relationships', $item);
+
+			$st = $db->query("SELECT ID FROM {$this->_prefix}posts WHERE post_parent = '$product_id'");
+			$product_vartiants =$st->fetchAll(\PDO::FETCH_OBJ);
+			$product_vartiant_ids = array_column($product_vartiants,"ID" );
+
+			//Todo : insert product variant to postmeta
+			$meta_keys_v = [
+				'_variation_description'=> '',
+				'total_sales'=> '0',
+				'_tax_status'=> 'taxable',
+				'_tax_class'=> 'parent',
+				'_manage_stock'=> 'no',
+				'_backorders'=> 'no',
+				'_sold_individually'=> 'no',
+				'_virtual'=> 'no',
+				'_downloadable'=> 'no',
+				'_download_limit'=> '-1',
+				'_download_expiry'=> '-1',
+				'_stock'=> null,
+				'_stock_status'=> 'instock',
+				'_wc_average_rating'=> '0',
+				'_wc_review_count'=> '0',
+				'_product_version'=> '4.2.0',
+				'_regular_price'=> '500',
+				'_sale_price'=> '20',
+				'_price'=> '20',
+			];
+
+			$attributeOption1 = array_column($json->variant,"option1");
+			$attributeOption2 = array_column($json->variant,"option2");
+			$attributeOption3 = array_column($json->variant,"option3");
+			$variantImages = array_column($json->variant,"image");
+
+			foreach ($product_vartiant_ids as $key => $id) {
+
+				foreach ($meta_keys_v as $meta_key => $val_key) {
+
+					$item = [];
+					$item['post_id'] = $id;
+					$item['meta_key'] = $meta_key;
+					$item['meta_value'] = $val_key;
+					$db->insert('postmeta', $item);
+				}
+
+				foreach ($attributes as $k => $val) {
+
+					if ($k == 'colors') {
+						$item = [];
+						$item['post_id'] = $id;
+						$item['meta_key'] = 'attribute_' . $k;
+						$item['meta_value'] = isset($attributeOption2[$key]) ? $attributeOption2[$key] : '';
+						$db->insert('postmeta', $item);
+
+					}
+					if ($k == 'styles') {
+						$item = [];
+						$item['post_id'] = $id;
+						$item['meta_key'] = 'attribute_' . $k;
+						$item['meta_value'] = isset($attributeOption1[$key]) ? $attributeOption1[$key] : '';
+						$db->insert('postmeta', $item);
+
+					}
+					if ($k == 'sizes') {
+						$item = [];
+						$item['post_id'] = $id;
+						$item['meta_key'] = 'attribute_' . $k;
+						$item['meta_value'] = isset($attributeOption3[$key]) ? $attributeOption3[$key] : '';
+						$db->insert('postmeta', $item);
+					}
+				}
+
+				if(!empty( $variantImages[$key])){
+					$item = [];
+					$item['post_id'] = $id;
+					$item['meta_key'] = 'geargag_image_url';
+					$item['meta_value'] = $variantImages[$key];
+					$db->insert('postmeta', $item);
+				}
+
+			}
+			$db->commit();
+			header('Content-Type: application/json');
+			echo json_encode(['status' => true, 'id' => $product_id]);
+		} catch (\Exception $e) {
+			$db->rollBack();
+			header('Content-Type: application/json');
+			echo json_encode(['status' => false, 'error' => $e->getMessage()]);
+		}
+	}
+
 }
