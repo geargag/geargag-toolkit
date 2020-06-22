@@ -2,6 +2,9 @@
   <dictionary name="vunamhung">
     <words>
       <w>\plugin</w>
+      <w>phpcs</w>
+      <w>postmeta</w>
+      <w>slugify</w>
       <w>wpinc</w>
     </words>
   </dictionary>

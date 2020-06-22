@@ -14,6 +14,9 @@
                   <Item>
                     <option name="path" value="src/plugin/composer.json" />
                   </Item>
+                  <Item>
+                    <option name="path" value="composer.json" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>
