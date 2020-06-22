@@ -9,7 +9,7 @@ import { readmeToMarkdown, replaceNamespaceText } from "./general";
 import { linkPlugin } from "./setup";
 import { buildPluginSass } from "./sass";
 import { backupLocalDB } from "./backup";
-import {pushPlugin} from "./deploy";
+import { pushPlugin } from "./deploy";
 
 task("replace:nameSpace", replaceNamespaceText);
 task("backup:local", backupLocalDB);
