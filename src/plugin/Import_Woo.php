@@ -484,15 +484,18 @@ class Import_Woo {
 				'_wc_average_rating'=> '0',
 				'_wc_review_count'=> '0',
 				'_product_version'=> '4.2.0',
-				'_regular_price'=> '500',
-				'_sale_price'=> '20',
-				'_price'=> '20',
+//				'_regular_price'=> '0',
+//				'_sale_price'=> '0',
+//				'_price'=> '0',
 			];
 
 			$attributeOption1 = array_column($json->variant,"option1");
 			$attributeOption2 = array_column($json->variant,"option2");
 			$attributeOption3 = array_column($json->variant,"option3");
 			$variantImages = array_column($json->variant,"image");
+			$variantPrice = array_column($json->variant,"price");
+//			echo "<pre>";
+//			print_r($variantPrice); die;
 
 			foreach ($product_vartiant_ids as $key => $id) {
 
@@ -504,30 +507,29 @@ class Import_Woo {
 					$item['meta_value'] = $val_key;
 					$db->insert('postmeta', $item);
 				}
-
 				foreach ($attributes as $k => $val) {
 
-					if ($k == 'colors') {
+					if ($k == $json->product->option2) {
 						$item = [];
 						$item['post_id'] = $id;
 						$item['meta_key'] = 'attribute_' . $k;
-						$item['meta_value'] = isset($attributeOption2[$key]) ? $attributeOption2[$key] : '';
+						$item['meta_value'] = isset($attributeOption2[$key]) ? trim ($attributeOption2[$key]) : '';
 						$db->insert('postmeta', $item);
 
 					}
-					if ($k == 'styles') {
+					if ($k == $json->product->option1) {
 						$item = [];
 						$item['post_id'] = $id;
 						$item['meta_key'] = 'attribute_' . $k;
-						$item['meta_value'] = isset($attributeOption1[$key]) ? $attributeOption1[$key] : '';
+						$item['meta_value'] = isset($attributeOption1[$key]) ? trim($attributeOption1[$key]) : '';
 						$db->insert('postmeta', $item);
 
 					}
-					if ($k == 'sizes') {
+					if ($k == $json->product->option3) {
 						$item = [];
 						$item['post_id'] = $id;
 						$item['meta_key'] = 'attribute_' . $k;
-						$item['meta_value'] = isset($attributeOption3[$key]) ? $attributeOption3[$key] : '';
+						$item['meta_value'] = isset($attributeOption3[$key]) ? trim($attributeOption3[$key]) : '';
 						$db->insert('postmeta', $item);
 					}
 				}
@@ -537,6 +539,26 @@ class Import_Woo {
 					$item['post_id'] = $id;
 					$item['meta_key'] = 'geargag_image_url';
 					$item['meta_value'] = $variantImages[$key];
+					$db->insert('postmeta', $item);
+				}
+				if(!empty($variantPrice[$key])){
+					//echo 123;die;
+					$item = [];
+					$item['post_id'] = $id;
+					$item['meta_key'] = '_price';
+					$item['meta_value'] = $variantPrice[$key];
+					$db->insert('postmeta', $item);
+
+					$item = [];
+					$item['post_id'] = $id;
+					$item['meta_key'] = '_sale_price';
+					$item['meta_value'] = $variantPrice[$key];
+					$db->insert('postmeta', $item);
+
+					$item = [];
+					$item['post_id'] = $id;
+					$item['meta_key'] = '_regular_price';
+					$item['meta_value'] = $variantPrice[$key];
 					$db->insert('postmeta', $item);
 				}
 
