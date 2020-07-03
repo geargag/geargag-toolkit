@@ -374,7 +374,7 @@ class Import_Woo {
 			foreach ($json->variant as $variant)
 			{
 				$slug = $this->slugify($variant->title) . '-' . time();
-				$wp_posts_vartiant = [
+				$wp_posts_variant = [
 					'post_author' => 1,
 					'post_date' => $date->format('Y-m-d H:i:s'),
 					'post_modified' => $date->format('Y-m-d H:i:s'),
@@ -396,7 +396,7 @@ class Import_Woo {
 					'post_type' => 'product_variation',
 					'post_mime_type' => '',
 				];
-				$db->insert('posts', $wp_posts_vartiant);
+				$db->insert('posts', $wp_posts_variant);
 
 			}
 
@@ -494,8 +494,6 @@ class Import_Woo {
 			$attributeOption3 = array_column($json->variant,"option3");
 			$variantImages = array_column($json->variant,"image");
 			$variantPrice = array_column($json->variant,"price");
-//			echo "<pre>";
-//			print_r($variantPrice); die;
 
 			foreach ($product_vartiant_ids as $key => $id) {
 

@@ -5,8 +5,7 @@ dist/
 .env
 
 #IDEA
-.idea/workspace.xml
-.idea/jsLinters/jshint.xml
+.idea/
 
 #PLUGIN
 /src/plugin/vendor/
