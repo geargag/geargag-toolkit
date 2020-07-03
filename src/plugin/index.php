@@ -26,6 +26,7 @@ final class Plugin {
 	public $add_db_column;
 	public $batch_delete;
 	public $woo;
+	public $woo_gallery;
 
 	public function __construct() {
 		$this->load();
@@ -53,6 +54,9 @@ final class Plugin {
 
 		$this->woo = new Woo();
 		$this->woo->boot();
+
+		$this->woo_gallery = new Woo_Gallery();
+		$this->woo_gallery->boot();
 	}
 
 	public function boot() {

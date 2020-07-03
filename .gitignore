@@ -5,11 +5,9 @@ dist/
 .env
 
 #IDEA
-.idea/workspace.xml
-.idea/jsLinters/jshint.xml
+.idea/
 
 #PLUGIN
 /src/plugin/vendor/
 /src/plugin/languages/
 /src/plugin/assets/js/dist
-/wp-cli.local.yml

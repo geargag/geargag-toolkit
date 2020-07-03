@@ -3,5 +3,5 @@
 	"useTabs": true,
 	"braceStyle": "1tbs",
 	"trailingComma": "all",
-	"trailingCommaPHP": "all"
+	"trailingCommaPHP": true
 }

@@ -59,6 +59,10 @@ class Woo implements Bootable {
 			'methods' => 'POST',
 			'callback' => [$this, 'import_products'],
 		]);
+		register_rest_route('geargag/v1', '/batch-insert-products', [
+			'methods' => 'POST',
+			'callback' => [$this, 'batch_insert_products'],
+		]);
 	}
 
 	public function get_export_products(WP_REST_Request $req) {
@@ -130,6 +134,15 @@ class Woo implements Bootable {
 		$consumer_secret = $req->get_param('consumer_secret');
 		$import = new Import_Woo();
 		$import->import($json, $consumer_key, $consumer_secret);
+		exit();
+	}
+	public function batch_insert_products(WP_REST_Request $req) {
+		$json = $req->get_json_params();
+		$json = json_decode(json_encode($json));
+		$consumer_key = $req->get_param('consumer_key');
+		$consumer_secret = $req->get_param('consumer_secret');
+		$import = new Import_Woo();
+		$import->insert($json, $consumer_key, $consumer_secret);
 		exit();
 	}
 }
