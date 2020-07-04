@@ -8,6 +8,7 @@ class Woo_Gallery implements Bootable {
 	public function boot() {
 		add_filter('woocommerce_available_variation', [$this, 'add_more_variation'], 10, 3);
 		add_filter('woocommerce_single_product_image_thumbnail_html', [$this, 'default_image']);
+		add_filter('woocommerce_product_get_image', [$this, 'woocommerce_product_get_image'], 10, 5);
 	}
 
 	public function add_more_variation($data, $product, $variation) {
@@ -33,7 +34,7 @@ class Woo_Gallery implements Bootable {
 			$html .= sprintf(
 				'<img src="%s" alt="%s" class="wp-post-image" />',
 				get_post_meta($product_id, 'geargag_image_url')[0],
-				esc_html__('Default image', 'woocommerce')
+				esc_html__('Geargag image', 'woocommerce')
 			);
 			$html .= '</div>';
 		} else {
@@ -48,4 +49,28 @@ class Woo_Gallery implements Bootable {
 
 		return $html;
 	}
+
+   public function woocommerce_product_get_image($image, $object, $size, $attr, $placeholder) {
+      if ( $object->get_image_id() ) {
+	     $image = wp_get_attachment_image( $object->get_image_id(), $size, false, $attr );
+      } elseif ( $object->get_parent_id() ) {
+	     $parent_product = wc_get_product( $object->get_parent_id() );
+	     if ( $parent_product ) {
+		    $image = $parent_product->get_image( $size, $attr, $placeholder );
+	     }
+      } elseif ( !empty(get_post_meta($object->get_id(), 'geargag_image_url'))) {
+         $image = sprintf(
+            '<img src="%s" alt="%s" class="wp-post-image" />',
+            get_post_meta($object->get_id(), 'geargag_image_url')[0],
+            esc_html__('Geargag image', 'woocommerce')
+         );
+      }
+
+      if ( ! $image && $placeholder ) {
+	     $image = wc_placeholder_img( $size, $attr );
+      }
+
+      return $image;
+
+   }
 }
