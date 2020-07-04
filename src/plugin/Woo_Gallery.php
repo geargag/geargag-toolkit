@@ -1,8 +1,6 @@
 <?php
 
-
 namespace GearGag_Toolkit;
-
 
 use GearGag_Toolkit\tools\contracts\Bootable;
 
@@ -13,31 +11,41 @@ class Woo_Gallery implements Bootable {
 	}
 
 	public function add_more_variation($data, $product, $variation) {
-		if (!empty(get_post_meta($variation->get_id(), 'geargag_image_url', true))) {
+		if ($variation->get_image_id()) {
+			$data['image'] = wc_get_product_attachment_props($variation->get_image_id());
+		} elseif (!empty(get_post_meta($variation->get_id(), 'geargag_image_url', true))) {
 			$data['image']['src'] = get_post_meta($variation->get_id(), 'geargag_image_url', true);
 		}
 
 		return $data;
 	}
 
-   public function default_image($html) {
-      global $product;
+	public function default_image($html) {
+		global $product;
 
-      $post_thumbnail_id = $product->get_image_id();
-      $product_id = $product->get_id();
+		$post_thumbnail_id = $product->get_image_id();
+		$product_id = $product->get_id();
 
-      if ( $product->get_image_id() ) {
-	     $html = wc_get_gallery_image_html( $post_thumbnail_id, true );
-      } elseif (!empty(get_post_meta($product_id, 'geargag_image_url'))) {
-	     $html  = '<div class="woocommerce-product-gallery__image--placeholder">';
-	     $html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', get_post_meta( $product_id, 'geargag_image_url')[0], esc_html__( 'Default image', 'woocommerce' ) );
-	     $html .= '</div>';
-      } else {
-	     $html  = '<div class="woocommerce-product-gallery__image--placeholder">';
-	     $html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
-	     $html .= '</div>';
-      }
+		if ($product->get_image_id()) {
+			$html = wc_get_gallery_image_html($post_thumbnail_id, true);
+		} elseif (!empty(get_post_meta($product_id, 'geargag_image_url'))) {
+			$html = '<div class="woocommerce-product-gallery__image--placeholder">';
+			$html .= sprintf(
+				'<img src="%s" alt="%s" class="wp-post-image" />',
+				get_post_meta($product_id, 'geargag_image_url')[0],
+				esc_html__('Default image', 'woocommerce')
+			);
+			$html .= '</div>';
+		} else {
+			$html = '<div class="woocommerce-product-gallery__image--placeholder">';
+			$html .= sprintf(
+				'<img src="%s" alt="%s" class="wp-post-image" />',
+				esc_url(wc_placeholder_img_src('woocommerce_single')),
+				esc_html__('Awaiting product image', 'woocommerce')
+			);
+			$html .= '</div>';
+		}
 
-      return $html;
+		return $html;
 	}
 }
