@@ -9,9 +9,17 @@ defined('WPINC') || die();
 
 class Woo implements Bootable {
 	public function boot() {
+		add_filter('woocommerce_product_is_in_stock', [$this, 'fix_is_in_stock'], 10, 2);
 		add_action('save_post_product', [$this, 'save_product']);
 		add_action('delete_post', [$this, 'delete_products']);
 		add_action('rest_api_init', [$this, 'register_routes']);
+	}
+
+	public function fix_is_in_stock($status, $object) {
+		if (get_post_meta($object->get_id(), 'geargag_image_url')) {
+			return true;
+		}
+		return $status;
 	}
 
 	/**

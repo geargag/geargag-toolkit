@@ -428,13 +428,13 @@ class Import_Woo {
 				'_sold_individually' => 'no',
 				'_virtual' => 'no',
 				'_downloadable' => 'no',
-				'_download_limit' => '-1',
-				'_download_expiry' => '-1',
+				'_download_limit' => '0',
+				'_download_expiry' => '0',
 				'_stock' => NULL,
 				'_stock_status' => 'instock',
-				'_wc_average_rating' => 'no',
-				'_wc_review_count' => 'no',
-				'_product_version' => 'no',
+			    '_wc_average_rating' => '0',
+			    '_wc_review_count' => '0',
+			    '_product_version' => '4.3.0',
 				'_price' => $json->product->price,
 				'_product_attributes'=>serialize($attributes)
 			];
@@ -477,13 +477,13 @@ class Import_Woo {
 				'_sold_individually'=> 'no',
 				'_virtual'=> 'no',
 				'_downloadable'=> 'no',
-				'_download_limit'=> '-1',
-				'_download_expiry'=> '-1',
+				'_download_limit'=> '0',
+				'_download_expiry'=> '0',
 				'_stock'=> null,
 				'_stock_status'=> 'instock',
 				'_wc_average_rating'=> '0',
 				'_wc_review_count'=> '0',
-				'_product_version'=> '4.2.0',
+				'_product_version'=> '4.3.0',
 //				'_regular_price'=> '0',
 //				'_sale_price'=> '0',
 //				'_price'=> '0',
@@ -544,12 +544,6 @@ class Import_Woo {
 					$item = [];
 					$item['post_id'] = $id;
 					$item['meta_key'] = '_price';
-					$item['meta_value'] = $variantPrice[$key];
-					$db->insert('postmeta', $item);
-
-					$item = [];
-					$item['post_id'] = $id;
-					$item['meta_key'] = '_sale_price';
 					$item['meta_value'] = $variantPrice[$key];
 					$db->insert('postmeta', $item);
 
