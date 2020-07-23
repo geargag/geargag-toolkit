@@ -33,13 +33,14 @@ class Woo_Gallery implements Bootable {
 		if ($product->get_image_id()) {
 			$html = wc_get_gallery_image_html($post_thumbnail_id, true);
 		} elseif (!empty(get_post_meta($product_id, 'geargag_image_url'))) {
-			$html = '<div class="woocommerce-product-gallery__image--placeholder">';
-			$html .= sprintf(
-				'<img src="%s" alt="%s" class="wp-post-image" />',
-				get_post_meta($product_id, 'geargag_image_url')[0],
-				esc_html__('Geargag image', 'woocommerce')
-			);
-			$html .= '</div>';
+		   $html = sprintf(
+			  "<div data-thumb='%s' data-thumb-alt='geargag thumbnail' class='woocommerce-product-gallery__image'><a href='%s'>%s</a></div>",
+			  esc_url(get_post_meta($product_id, 'geargag_image_url')[0]),
+			  esc_url(get_post_meta($product_id, 'geargag_image_url')[0]),
+			  sprintf('<img width="510" height="510" src="%1$s" class="wp-post-image" alt="" title="pennant-1.jpg" data-caption="" data-src="%1$s" data-large_image="%1$s" data-large_image_width="800" data-large_image_height="800" >',
+				 get_post_meta($product_id, 'geargag_image_url')[0]
+				)
+		   );
 		} else {
 			$html = '<div class="woocommerce-product-gallery__image--placeholder">';
 			$html .= sprintf(
