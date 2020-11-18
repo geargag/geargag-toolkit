@@ -360,7 +360,7 @@ class Import_Woo {
 				'comment_count' => 0,
 			];
 
-			$slug = $this->slugify($json->name) . '-' . time();
+			$slug = $this->slugify($json->product->name) . '-' . time();
 			$date = new DateTime('now', new DateTimeZone(get_time_zone()));
 			$wp_posts['post_name'] = $slug;
 			$wp_posts['post_date'] = $date->format('Y-m-d H:i:s');
