@@ -120,7 +120,8 @@ class Import_Woo {
 			$date = new DateTime('now', new DateTimeZone(get_time_zone()));
 			$wp_posts['geargag_defaults'] = json_encode($json->geargag_defaults, JSON_UNESCAPED_SLASHES);
 			$wp_posts['post_title'] = $json->name;
-			$wp_posts['post_excerpt'] = $json->description;
+			$wp_posts['post_excerpt'] = '';
+			$wp_posts['post_content'] = $json->description;
 			$wp_posts['post_name'] = $slug;
 			$wp_posts['post_date'] = $date->format('Y-m-d H:i:s');
 			$wp_posts['post_modified'] = $date->format('Y-m-d H:i:s');
@@ -342,9 +343,9 @@ class Import_Woo {
 			//Todo : insert product to wp_posts
 			$wp_posts = [
 				'post_author' => 1,
-				'post_content' => '',
+				'post_excerpt' => '',
 				'post_title' => $json->product->name ? $json->product->name : "",
-				'post_excerpt' => $json->product->description ? $json->product->description : "",
+				'post_content' => $json->product->description ? $json->product->description : "",
 				'post_status' => 'publish',
 				'comment_status' => 'open',
 				'ping_status' => 'closed',
