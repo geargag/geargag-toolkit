@@ -27,12 +27,9 @@ class Woo_Gallery implements Bootable {
 	public function default_image($html) {
 		global $product;
 
-		$post_thumbnail_id = $product->get_image_id();
 		$product_id = $product->get_id();
 
-		if ($product->get_image_id()) {
-			$html = wc_get_gallery_image_html($post_thumbnail_id, true);
-		} elseif (!empty(get_post_meta($product_id, 'geargag_image_url'))) {
+		if (!empty(get_post_meta($product_id, 'geargag_image_url'))) {
 		   $html = sprintf(
 			  "<div data-thumb='%s' data-thumb-alt='geargag thumbnail' class='woocommerce-product-gallery__image'><a href='%s'>%s</a></div>",
 			  esc_url(get_post_meta($product_id, 'geargag_image_url')[0]),
@@ -41,14 +38,8 @@ class Woo_Gallery implements Bootable {
 				 get_post_meta($product_id, 'geargag_image_url')[0]
 				)
 		   );
-		} else {
-			$html = '<div class="woocommerce-product-gallery__image--placeholder">';
-			$html .= sprintf(
-				'<img src="%s" alt="%s" class="wp-post-image" />',
-				esc_url(wc_placeholder_img_src('woocommerce_single')),
-				esc_html__('Awaiting product image', 'woocommerce')
-			);
-			$html .= '</div>';
+
+		   return $html;
 		}
 
 		return $html;
