@@ -1,17 +1,17 @@
 name: Deploy to WordPress.org
 on:
   push:
-    tags:
-      - "*"
+    branches:
+      - "master"
 jobs:
   tag:
-    name: New tag
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1.1.0
         with:
-          node-version: '11.x'
+          node-version: ['12.x']
       - run: npm install
       - run: gulp build:plugin
       - name: WordPress Plugin Deploy
